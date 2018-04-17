@@ -1,0 +1,11 @@
+{
+  "request.id": null,
+  "errors": [
+    {
+      "id": "error/api/cantdecodejson",
+      "explain": "'\"' expected, at character offset 6748 (before \"extra:{}\\n, \"session...\") at \n"
+    }
+  ],
+  "duration": null,
+  "_ehid": "210476.274329285864.1518164154"
+}
