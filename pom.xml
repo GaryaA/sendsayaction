@@ -27,9 +27,9 @@
             <version>20160810</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.2.5</version>
+            <groupId>ru.cubesolutions.evam.utils</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 

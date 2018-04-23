@@ -21,9 +21,9 @@ public class SendsayApi {
     private AutoLoginResourcesApi autoLoginResourcesApi;
     private Config config;
 
-    public SendsayApi(Config config, String proxyUser, String proxyPassword) {
+    public SendsayApi(Config config) {
         this.config = config;
-        this.autoLoginResourcesApi = new AutoLoginResourcesApi(config, proxyUser, proxyPassword);
+        this.autoLoginResourcesApi = new AutoLoginResourcesApi(config);
     }
 
     public static void main(String[] args) {
@@ -34,7 +34,7 @@ public class SendsayApi {
         String sendsayFromName = "BankAstana";
         String fromEmail = "24@bankastana.kz";
         Config config = new Config(urlBaseSendsay, sendsayCommonLogin, sendsayPrivateLogin, sendsayPassword, sendsayFromName, fromEmail);
-        SendsayApi sendsayApi = new SendsayApi(config, "", "");
+        SendsayApi sendsayApi = new SendsayApi(config);
 
         Map<String, String> params = new HashMap<>();
         params.put("sd.sd", "оаоаоа");

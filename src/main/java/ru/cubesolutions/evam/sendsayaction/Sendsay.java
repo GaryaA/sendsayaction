@@ -18,22 +18,11 @@ public class Sendsay extends AbstractOutputAction {
     private final static Logger log = Logger.getLogger(Sendsay.class);
 
     private SendsayApi sendsayApi;
-    private String proxyUser;
-    private String proxyPassword;
 
     @Override
     public synchronized void init() {
         isInited = false;
-        log.debug("initttttttttttttttttttttttttttt");
-        try (InputStream input = new FileInputStream("./conf/proxy-http.properties")) {
-            Properties props = new Properties();
-            props.load(input);
-            initProxyUserAndPassword(props);
-        } catch (Throwable t) {
-            log.error("failed to init Sendsay action, file proxy-http.properties not found", t);
-            isInited = false;
-            return;
-        }
+        log.debug("init");
         try (InputStream input = new FileInputStream("./conf/sendsay.properties")) {
             Properties props = new Properties();
             props.load(input);
@@ -104,13 +93,6 @@ public class Sendsay extends AbstractOutputAction {
         log.debug("Action input string:" + parameterContext.getActionInputString());
         String templateIdStr = parameterContext.getActionInputString();
         if (sendsayApi == null) {
-            try (InputStream input = new FileInputStream("./conf/proxy-http.properties")) {
-                Properties props = new Properties();
-                props.load(input);
-                initProxyUserAndPassword(props);
-            } catch (Throwable t) {
-                log.error("failed to init Sendsay action, file proxy-http.properties not found", t);
-            }
             try (InputStream input = new FileInputStream("./conf/sendsay.properties")) {
                 Properties props = new Properties();
                 props.load(input);
@@ -142,16 +124,6 @@ public class Sendsay extends AbstractOutputAction {
         return "v1.0";
     }
 
-
-    private void initProxyUserAndPassword(Properties props) {
-        String proxyUser = props.getProperty("user");
-        String proxyPassword = props.getProperty("password");
-        if (proxyUser != null && !proxyUser.isEmpty()) {
-            this.proxyUser = proxyUser;
-            this.proxyPassword = proxyPassword == null ? "" : proxyPassword;
-        }
-    }
-
     private void initSendsayApi(Properties props) {
         String urlBaseSendsay = props.getProperty("url-base-sendsay");
         String sendsayCommonLogin = props.getProperty("sendsay-common-login");
@@ -160,6 +132,6 @@ public class Sendsay extends AbstractOutputAction {
         String sendsayFromName = props.getProperty("sendsay-from-name");
         String fromEmail = props.getProperty("sendsay-from-email");
         Config config = new Config(urlBaseSendsay, sendsayCommonLogin, sendsayPrivateLogin, sendsayPassword, sendsayFromName, fromEmail);
-        this.sendsayApi = new SendsayApi(config, this.proxyUser, this.proxyPassword);
+        this.sendsayApi = new SendsayApi(config);
     }
 }
