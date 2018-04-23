@@ -111,7 +111,9 @@ public class Sendsay extends AbstractOutputAction {
                 continue;
             }
             Map<String, String> catalogVars = sendsayApi.findGlobalParams();
-            catalogVars.forEach((k, v) -> System.out.println(k + ": " + v));
+            for (String k : catalogVars.keySet()) {
+                log.debug(k + ": " + catalogVars.get(k));
+            }
             String presentableVarName = catalogVars.get(paramName);
             paramList.add(new IOMParameter(presentableVarName == null ? paramName : presentableVarName,
                     presentableVarName == null ? paramName : presentableVarName));
